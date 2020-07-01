@@ -50,6 +50,7 @@ class Databank:
             if not checking:
                 self.cursor.execute('INSERT INTO func (cpf, name, last_name, age, salary) values (%s, %s, %s, %s, %s)',
                                     (cpf, name, last_name, age, salary))
+                print('Employee registered successfully!')
             else:
                 print("You're already registered.")
         except Exception:
@@ -58,6 +59,40 @@ class Databank:
             self.con.commit()
             self.con.close()
 
+    def update_employee(self, cpf: str, name: str, last_name: str, age: int, salary: float):
+        """This function updates the employee's data.
+        :param cpf: number
+        :param name: str
+        :param last_name: str
+        :param age: int
+        :param salary: float"""
+        checking = self.checking_register_employer(cpf)
+        if not checking:
+            print("Employee does not exist.")
+        else:
+            try:
+                self.cursor.execute('UPDATE func SET name = %s, last_name = %s, age = %s, salary =%s WHERE cpf = %s',
+                                    (name, last_name, age, salary, cpf))
+                print('Updated successfully.')
+                self.con.commit()
+                self.con.close()
+            except Exception:
+                print('Error in the update!')
+
+    def delete_employee(self, cpf: str):
+        try:
+            self.cursor.execute('DELETE FROM func WHERE cpf = %s', (cpf,))
+        except Exception:
+            print("Employee does not exist.")
+        else:
+            self.con.commit()
+            self.con.close()
+            print('Employee deleted successfully!')
+
 
 if __name__ == '__main__':
-    print('Funcionou')
+    # Testing the functions in the database.
+    db = Databank()
+    # db.register_employee(11384765317, 'Ervald', 'Perlo', 33, '1322.30')
+    # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
+    # db.delete_employee(11384765313)
