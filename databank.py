@@ -8,7 +8,7 @@ class Databank:
         self.cursor = self.con.cursor()
 
     def create_table(self):
-        """This function starts the func table"""
+        """This function starts the table 'func' if the table don't exists."""
         try:
             self.cursor.execute('CREATE TABLE IF NOT EXISTS func (cpf int(11) PRIMARY KEY not null, name varchar(255) '
                                 'not null, last_name varchar(255) not null, age int(3) not null, salary decimal(10,2)'
@@ -18,7 +18,7 @@ class Databank:
 
     def checking_register_employer(self, cpf: str):
         """This function checks if the employee is already registered in the database.
-        :param cpf: str
+        :param cpf: number
         :rtype: boolean
         """
         data_user = []
@@ -80,6 +80,8 @@ class Databank:
                 print('Error in the update!')
 
     def delete_employee(self, cpf: str):
+        """This function delete the employee
+        :param cpf: number"""
         try:
             self.cursor.execute('DELETE FROM func WHERE cpf = %s', (cpf,))
         except Exception:
@@ -89,6 +91,17 @@ class Databank:
             self.con.close()
             print('Employee deleted successfully!')
 
+    def select_by_obj(self, cpf: str):
+        data = []
+        try:
+            self.cursor.execute('SELECT name from func where cpf = %s', (cpf,))
+            for i in self.cursor.fetchall():
+                data.append(i[0])
+        except Exception:
+            pass
+        else:
+            print(data[0])
+
 
 if __name__ == '__main__':
     # Testing the functions in the database.
@@ -96,3 +109,4 @@ if __name__ == '__main__':
     # db.register_employee(11384765317, 'Ervald', 'Perlo', 33, '1322.30')
     # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
     # db.delete_employee(11384765313)
+    db.select_by_obj(11384765311)
