@@ -91,6 +91,20 @@ class Databank:
             self.con.close()
             print('Employee deleted successfully!')
 
+    def select_salary(self, cpf: str) -> float:
+        """This function makes a select in the database and obtains the employee's salary by cpf
+        :param cpf: number"""
+        dado_select = []
+        try:
+            self.cursor.execute('SELECT salary from func where cpf = %s', (cpf,))
+            for i in self.cursor.fetchall():
+                dado_select.append(i[0])
+        except Exception as error:
+            print('Error select_salary')
+            print(error)
+        else:
+            return float(dado_select[0])
+
 
 if __name__ == '__main__':
     # Testing the functions in the database.
@@ -99,4 +113,6 @@ if __name__ == '__main__':
     # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
     # db.delete_employee(11384765313)
     # db.select_by_obj(11384765311)
-    print(db.checking_register_employer(11384765312))
+    # print(db.checking_register_employer(11384765312))
+    print(db.select_salary(11384765311))
+    print(type(db.select_salary(11384765311)))

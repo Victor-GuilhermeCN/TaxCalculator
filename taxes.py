@@ -6,44 +6,33 @@ class Calc:
     def __init__(self):
         self.db = Databank()
 
-    def inss(self, cpf):
-        salary = []
+    def fee_inss(self, cpf: str):
+        """ This function performs the calculation of the INSS fee according to the salary amount
+        :param cpf: number"""
         try:
-            consult = self.db.checking_register_employer(cpf)
-            if consult:
-                cons_sal = self.db.cursor.execute('SELECT salary FROM func where cpf = %s', (cpf,))
-                for i in self.db.cursor.fetchall():
-                    salary.append(i[0])
-                if salary[0] <= 1045.00:
-                    aliq = (salary[0] / 100) * 7.5
-                    print(aliq)
-                elif 1045.01 < salary[0] <= 2089.60:
-                    aliq = (salary[0] / 100) * 9
-                    print(aliq)
-                elif 2089.61 < salary[0] <= 3134.40:
-                    aliq = (salary[0] / 100) * 12
-                    print(aliq)
-                elif 3134.31 < salary[0] <= 6101.06:
-                    aliq = (salary[0] / 100) * 14
-                    print(aliq)
-                else:
-                    aliq = (salary[0] / 100) * 14
-                    print(aliq)
+            #  Receives salary from the database
+            salary = self.db.select_salary(cpf)
+            # Performing the calculation
+            if salary <= 1045.00:
+                track1 = round(((salary / 100) * 7.5), 2)
+                return track1
+            elif 1045.00 < salary <= 2089.60:
+                track2 = round((((salary / 100) * 9) - 15.68), 2)
+                return track2
+            elif 2089.60 < salary <= 3134.41:
+                track3 = round((((salary / 100) * 12) - 78.38), 2)
+                return track3
+            elif 3134.41 < salary <= 6101.06:
+                track4 = round((((salary / 100) * 14) - 141.07), 2)
+                return track4
             else:
-                print('tem nada')
-        except:
-            print('porra')
-            print(salary[0])
-        else:
-            print(salary[0])
+                track5 = 713.08
+                return track5
+        except Exception as error:
+            print(error)
 
 
 if __name__ == '__main__':
     c = Calc()
-    c.inss(11384765311)
-
-
-
-
-
-
+    print(c.fee_inss(11384765311))
+    help(c.fee_inss)
