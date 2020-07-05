@@ -91,17 +91,6 @@ class Databank:
             self.con.close()
             print('Employee deleted successfully!')
 
-    def select_by_obj(self, cpf: str):
-        data = []
-        try:
-            self.cursor.execute('SELECT name from func where cpf = %s', (cpf,))
-            for i in self.cursor.fetchall():
-                data.append(i[0])
-        except Exception:
-            pass
-        else:
-            print(data[0])
-
 
 if __name__ == '__main__':
     # Testing the functions in the database.
@@ -109,4 +98,5 @@ if __name__ == '__main__':
     # db.register_employee(11384765317, 'Ervald', 'Perlo', 33, '1322.30')
     # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
     # db.delete_employee(11384765313)
-    db.select_by_obj(11384765311)
+    # db.select_by_obj(11384765311)
+    print(db.checking_register_employer(11384765312))
