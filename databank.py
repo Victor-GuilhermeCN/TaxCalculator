@@ -38,7 +38,7 @@ class Databank:
             except IndexError:
                 pass
 
-    def register_employee(self, cpf: str, name: str, last_name: str, age: int, salary: float):
+    def register_employee(self, cpf: str, name: str, last_name: str, age: int, salary: float, dependents=0):
         """This function register the employee if he isn't registered in the database.
         :param cpf: number
         :param name: str
@@ -48,12 +48,12 @@ class Databank:
         try:
             checking = self.checking_register_employer(cpf)
             if not checking:
-                self.cursor.execute('INSERT INTO func (cpf, name, last_name, age, salary) values (%s, %s, %s, %s, %s)',
-                                    (cpf, name, last_name, age, salary))
+                self.cursor.execute('INSERT INTO func (cpf, name, last_name, age, salary, dependents) values '
+                                    '(%s, %s, %s, %s, %s, %s)', (cpf, name, last_name, age, salary, dependents))
                 print('Employee registered successfully!')
             else:
                 print("You're already registered.")
-        except Exception:
+        except Warning:
             pass
         else:
             self.con.commit()
@@ -105,14 +105,27 @@ class Databank:
         else:
             return float(dado_select[0])
 
+    def select_num_dependents(self, cpf: str):
+        num_dependents = []
+        try:
+            self.cursor.execute('SELECT dependents from func where cpf =%s', (cpf,))
+            for i in self.cursor.fetchall():
+                num_dependents.append(i[0])
+        except Exception as error:
+            print(error)
+        else:
+            return int(num_dependents[0])
+
 
 if __name__ == '__main__':
     # Testing the functions in the database.
     db = Databank()
+    # db.register_employee(38734112319, 'Alan', 'Arroume', 34, 5000)
     # db.register_employee(11384765317, 'Ervald', 'Perlo', 33, '1322.30')
     # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
     # db.delete_employee(11384765313)
     # db.select_by_obj(11384765311)
     # print(db.checking_register_employer(11384765312))
-    print(db.select_salary(11384765311))
-    print(type(db.select_salary(11384765311)))
+    # print(db.select_salary(11384765311))
+    # print(type(db.select_salary(11384765311)))
+    print(db.select_num_dependents('11384765311'))
