@@ -44,7 +44,8 @@ class Databank:
         :param name: str
         :param last_name: str
         :param age: int
-        :param salary: float"""
+        :param salary: float
+        :param dependents: number"""
         try:
             checking = self.checking_register_employer(cpf)
             if not checking:

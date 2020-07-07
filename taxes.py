@@ -1,4 +1,5 @@
 from databank import Databank
+import unittest
 
 
 class Calc:
@@ -31,7 +32,7 @@ class Calc:
         except Exception as error:
             print(error)
 
-    def fee_irrf(self, cpf: int):
+    def fee_irrf(self, cpf: str):
         try:
             salary = self.db.select_salary(cpf)
             dependents = self.db.select_num_dependents(cpf)
@@ -55,8 +56,15 @@ class Calc:
             print(error)
 
 
+class Calctest(unittest.TestCase):
+    def test_inss(self):
+        obj = Calc()
+        self.assertEqual(obj.fee_inss(11384765311), 713.08)
+
+
 if __name__ == '__main__':
-    c = Calc()
-    print(c.fee_inss(11384765311))
+    # c = Calc()
+    # print(c.fee_inss(11384765311))
     # help(c.fee_inss)
-    print(c.fee_irrf(11384765311))
+    # print(c.fee_irrf(11384765311))
+    unittest.main()
