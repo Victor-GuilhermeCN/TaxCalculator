@@ -61,6 +61,10 @@ class Calctest(unittest.TestCase):
         obj = Calc()
         self.assertEqual(obj.fee_inss(11384765311), 713.08)
 
+    def test_irrg(self):
+        obj = Calc()
+        self.assertEqual(obj.fee_irrf(11384765311), 1476.00)
+
 
 if __name__ == '__main__':
     # c = Calc()
