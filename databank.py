@@ -33,10 +33,8 @@ class Databank:
                 # Returning boolean values(True or False)
                 if data_user[0] == str(cpf):
                     return True
-                else:
-                    return False
             except IndexError:
-                pass
+                return False
 
     def register_employee(self, cpf: str, name: str, last_name: str, age: int, salary: float, dependents=0):
         """This function register the employee if he isn't registered in the database.
@@ -107,6 +105,8 @@ class Databank:
             return float(dado_select[0])
 
     def select_num_dependents(self, cpf: str):
+        """This fcuntion makes a select in the database and obtains the employee's dependents number by cpf
+        :param cpf: number"""
         num_dependents = []
         try:
             self.cursor.execute('SELECT dependents from func where cpf =%s', (cpf,))
@@ -125,8 +125,6 @@ if __name__ == '__main__':
     # db.register_employee(11384765317, 'Ervald', 'Perlo', 33, '1322.30')
     # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
     # db.delete_employee(11384765313)
-    # db.select_by_obj(11384765311)
-    # print(db.checking_register_employer(11384765312))
-    # print(db.select_salary(11384765311))
-    # print(type(db.select_salary(11384765311)))
-    print(db.select_num_dependents('11384765311'))
+    print(db.checking_register_employer(11384765312))
+    print(db.select_salary(11373412312))
+    print(db.select_num_dependents(11373412312))

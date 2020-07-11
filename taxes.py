@@ -15,22 +15,23 @@ class Calc:
             salary = self.db.select_salary(cpf)
             # Performing the calculation
             if salary <= 1045.00:
-                track1 = ((salary / 100) * 7.5), 2
-                return round(track1)
+                track1 = ((salary / 100) * 7.5)
+                return round(track1, 2)
             elif 1045.00 < salary <= 2089.60:
-                track2 = (((salary / 100) * 9) - 15.68), 2
-                return round(track2)
+                track2 = (((salary / 100) * 9) - 15.68)
+                return round(track2, 2)
             elif 2089.60 < salary <= 3134.41:
-                track3 = (((salary / 100) * 12) - 78.38), 2
-                return round(track3)
+                track3 = (((salary / 100) * 12) - 78.38)
+                return round(track3, 2)
             elif 3134.41 < salary <= 6101.06:
-                track4 = (((salary / 100) * 14) - 141.07), 2
-                return round(track4)
+                track4 = (((salary / 100) * 14) - 141.07)
+                return round(track4, 2)
             else:
                 track5 = 713.08
                 return track5
         except Exception as error:
             print(error)
+            print('1')
 
     def fee_irrf(self, cpf: str):
         try:
@@ -67,8 +68,8 @@ class Calctest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    # c = Calc()
-    # print(c.fee_inss(11384765311))
+    c = Calc()
+    print(c.fee_inss(11373412312))
     # help(c.fee_inss)
     # print(c.fee_irrf(11384765311))
-    unittest.main()
+    # unittest.main()
