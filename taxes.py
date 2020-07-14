@@ -9,7 +9,8 @@ class Calc:
 
     def fee_inss(self, cpf: str):
         """ This function performs the calculation of the INSS fee according to the salary amount
-        :param cpf: number"""
+        :param cpf: number
+        :return fee INSS"""
         try:
             #  Receives salary from the database
             salary = self.db.select_salary(cpf)
@@ -31,9 +32,11 @@ class Calc:
                 return track5
         except Exception as error:
             print(error)
-            print('1')
 
     def fee_irrf(self, cpf: str):
+        """This function performs the calculation of the IRRF fee according to the salary amount
+        :param cpf: number
+        :return IRRF fee"""
         try:
             salary = self.db.select_salary(cpf)
             dependents = self.db.select_num_dependents(cpf)
@@ -58,6 +61,7 @@ class Calc:
 
 
 class Calctest(unittest.TestCase):
+    """Class to test the components."""
     def test_inss(self):
         obj = Calc()
         self.assertEqual(obj.fee_inss(11384765311), 713.08)
@@ -68,8 +72,8 @@ class Calctest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    c = Calc()
-    print(c.fee_inss(11373412312))
+    # c = Calc()
+    # print(c.fee_inss(11373412312))
     # help(c.fee_inss)
     # print(c.fee_irrf(11384765311))
-    # unittest.main()
+    unittest.main()
