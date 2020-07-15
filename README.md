@@ -2,6 +2,7 @@
 Simple application that calculates payroll taxes
 
 EN
+
 Version 0.1 - Database configuration.
 Setting up the database for creating the CRUD.
 
@@ -28,6 +29,7 @@ Creating GUI's for the user to use on screens.
 
 -------------------------------------------------------------------------
 PT - BR 
+
 Versão 0.1 - Configuração do Banco de dados.
 Configurando o banco de dados para a criação do CRUD.
 
