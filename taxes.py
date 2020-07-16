@@ -13,7 +13,7 @@ class Calc:
         :return fee INSS"""
         try:
             #  Receives salary from the database
-            salary = self.db.select_salary(cpf)
+            salary = float(self.db.select_by_tuple('salary', cpf))
             # Performing the calculation
             if salary <= 1045.00:
                 track1 = ((salary / 100) * 7.5)
@@ -38,8 +38,8 @@ class Calc:
         :param cpf: number
         :return IRRF fee"""
         try:
-            salary = self.db.select_salary(cpf)
-            dependents = self.db.select_num_dependents(cpf)
+            salary = float(self.db.select_by_tuple('salary', cpf))
+            dependents = self.db.select_by_tuple('dependents', cpf)
             liq_sal = ((salary - self.fee_inss(cpf)) - (dependents * 189.59))
             if liq_sal <= 1903.98:
                 print('Exempt from IRRF.')
@@ -77,3 +77,5 @@ if __name__ == '__main__':
     # help(c.fee_inss)
     # print(c.fee_irrf(11384765311))
     unittest.main()
+    # c = Calc()
+    # print(c.fee_irrf(11373412312))

@@ -90,32 +90,21 @@ class Databank:
             self.con.close()
             print('Employee deleted successfully!')
 
-    def select_salary(self, cpf: str) -> float:
-        """This function makes a select in the database and obtains the employee's salary by cpf
-        :param cpf: number"""
-        dado_select = []
+    def select_by_tuple(self, name: str, cpf: str):
+        """This function makes a select in the database and obtains the employee's information according to the previous
+         parameter passed in the method description by cpf
+         :param name: string
+         :param cpf: number"""
+        data = []
         try:
-            self.cursor.execute('SELECT salary from func where cpf = %s', (cpf,))
+            sql = f'SELECT {name} from func where cpf = {cpf}'
+            self.cursor.execute(sql)
             for i in self.cursor.fetchall():
-                dado_select.append(i[0])
-        except Exception as error:
-            print('Error select_salary')
-            print(error)
-        else:
-            return float(dado_select[0])
-
-    def select_num_dependents(self, cpf: str):
-        """This fcuntion makes a select in the database and obtains the employee's dependents number by cpf
-        :param cpf: number"""
-        num_dependents = []
-        try:
-            self.cursor.execute('SELECT dependents from func where cpf =%s', (cpf,))
-            for i in self.cursor.fetchall():
-                num_dependents.append(i[0])
+                data.append(i[0])
         except Exception as error:
             print(error)
         else:
-            return int(num_dependents[0])
+            return data[0]
 
 
 if __name__ == '__main__':
@@ -125,6 +114,7 @@ if __name__ == '__main__':
     # db.register_employee(11384765317, 'Ervald', 'Perlo', 33, '1322.30')
     # db.update_employee('11384765317', 'Everaldo', 'Pedro', 33, 1550.4)
     # db.delete_employee(11384765313)
-    print(db.checking_register_employer(11384765312))
-    print(db.select_salary(11373412312))
-    print(db.select_num_dependents(11373412312))
+    # print(db.checking_register_employer(11384765312))
+    # print(db.select_salary(11373412312))
+    # print(db.select_num_dependents(11373412312))
+    db.select_by_tuple('name', 11373412312)
