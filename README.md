@@ -27,6 +27,9 @@ o the correct execution.
 Version 0.7 - Creation of screens and correction of code errors.
 Creating GUI's for the user to use on screens.
 
+Version 0.8 - Refactoring the code.
+Refactoring the code to make it more efficient and readable
+
 -------------------------------------------------------------------------
 PT - BR 
 
@@ -53,3 +56,6 @@ o a execução correta.
 
 Versão 0.7 - Criação das telas e correção dos erros de código.
 Criando as GUI's para a utilização do usuário por telas.
+
+Versão 0.8 - Refatorando o código.
+Refatorando o código para torna-lo mais eficiente e legivel
